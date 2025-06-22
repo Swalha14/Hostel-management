@@ -34,7 +34,7 @@
                   </Label>
                </children>
             </AnchorPane>
-            <Button fx:id="btnAllocateRoom" layoutX="11.0" layoutY="80.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="215.0" style="-fx-background-color: #FF0000;" text="Allocate Room" />
+            <Button fx:id="btnAllocateRoom" layoutX="11.0" layoutY="80.0" mnemonicParsing="false" onAction="#handleAllocateRoom" prefHeight="28.0" prefWidth="215.0" style="-fx-background-color: #FF0000;" text="Allocate Room" />
             <ImageView fitHeight="21.0" fitWidth="42.0" layoutX="11.0" layoutY="85.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@/pkg_Images/bunk-bed.png" />
@@ -44,7 +44,7 @@
             <Button layoutX="11.0" layoutY="172.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="215.0" style="-fx-background-color: #FF0000;" text="Add Room" />
             <Button layoutX="11.0" layoutY="215.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="215.0" style="-fx-background-color: #FF0000;" text="Delete Room" />
             <Button layoutX="11.0" layoutY="258.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="215.0" style="-fx-background-color: #FF0000;" text="Roomify Services" />
-            <Button layoutX="11.0" layoutY="358.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="215.0" style="-fx-background-color: #FF0000;" text="Log Out" />
+            <Button layoutX="11.0" layoutY="358.0" mnemonicParsing="false" onAction="#handleLogout" prefHeight="28.0" prefWidth="215.0" style="-fx-background-color: #FF0000;" text="Log Out" />
             <ImageView fitHeight="28.0" fitWidth="68.0" layoutX="15.0" layoutY="358.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@/pkg_Images/logout.png" />

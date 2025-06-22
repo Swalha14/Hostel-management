@@ -108,14 +108,6 @@ public class StudentProfileController {
 
 
 
-
-
-
-
-
-
-
-
     private void loadServicesFromDatabase() {
         ObservableList<Service> servicesList = FXCollections.observableArrayList();
         String query = "SELECT service_name, description FROM services";

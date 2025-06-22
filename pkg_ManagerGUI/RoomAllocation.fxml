@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx/23.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="pkg_ManagerGUI.RoomAllocationController">
+
+    <center>
+        <HBox spacing="20.0">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+
+            <!-- Students Table -->
+            <VBox spacing="10.0" prefWidth="400">
+                <Label text="Unassigned Students" style="-fx-font-weight: bold;" />
+                <TableView fx:id="studentsTable" prefHeight="300">
+                    <columns>
+                        <TableColumn fx:id="colStudentId" text="ID" prefWidth="80"/>
+                        <TableColumn fx:id="colStudentName" text="Name" prefWidth="120"/>
+                        <TableColumn fx:id="colGender" text="Gender" prefWidth="80"/>
+                        <TableColumn fx:id="colRoomPreference" text="Preference" prefWidth="100"/>
+                    </columns>
+                </TableView>
+            </VBox>
+
+            <!-- Available Rooms Table -->
+            <VBox spacing="10.0" prefWidth="400">
+                <Label text="Available Rooms" style="-fx-font-weight: bold;" />
+                <TableView fx:id="roomsTable" prefHeight="300">
+                    <columns>
+                        <TableColumn fx:id="colRoomNumber" text="Room #" prefWidth="100"/>
+                        <TableColumn fx:id="colRoomType" text="Type" prefWidth="80"/>
+                        <TableColumn fx:id="colRoomGender" text="Gender" prefWidth="80"/>
+                        <TableColumn fx:id="colAvailableSlots" text="Available" prefWidth="80"/>
+                    </columns>
+                </TableView>
+            </VBox>
+        </HBox>
+    </center>
+
+    <bottom>
+        <HBox alignment="CENTER" spacing="10.0">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+            <Button text="Allocate Room" onAction="#handleAllocateRoom"
+                    style="-fx-background-color: #FF3333; -fx-text-fill: white;" />
+            <!-- Cancel Button -->
+            <Button text="Cancel" onAction="#handleCancel"
+                    style="-fx-background-color: #FF3333; -fx-text-fill: white;" />
+        </HBox>
+    </bottom>
+</BorderPane>
