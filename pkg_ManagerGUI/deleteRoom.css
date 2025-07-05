@@ -1,0 +1,20 @@
+.delete-btn {
+    -fx-background-color: #e60000;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 6;
+    -fx-padding: 8 20;
+}
+
+.cancel-btn {
+    -fx-background-color: #6c757d;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 6;
+    -fx-padding: 8 20;
+}
+
+.back-btn {
+    -fx-background-color: #4da6ff;
+    -fx-text-fill: white;
+}
