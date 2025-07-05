@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<?import javafx.collections.FXCollections?>
+
+<?import java.lang.String?>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="pkg_ManagerGUI.AddRoomController"
+            stylesheets="@addRoom.css"
+            styleClass="root">
+
+    <!-- Title -->
+    <top>
+        <VBox alignment="CENTER" spacing="8" styleClass="header">
+            <Label text="Add Room" styleClass="title"/>
+            <Label text="Enter room details below" styleClass="subtitle"/>
+        </VBox>
+    </top>
+
+    <!-- Form -->
+    <center>
+        <GridPane hgap="20" vgap="15" alignment="CENTER" styleClass="form">
+            <columnConstraints>
+                <ColumnConstraints minWidth="120" halignment="RIGHT"/>
+                <ColumnConstraints minWidth="200" halignment="LEFT"/>
+            </columnConstraints>
+
+            <Label text="Room Number:"/>
+            <TextField fx:id="roomNumberField" promptText="Room ID"/>
+
+            <Label text="Capacity:" GridPane.rowIndex="1"/>
+            <TextField fx:id="capacityField" promptText="Capacity" GridPane.rowIndex="1"/>
+
+            <Label text="Gender:" GridPane.rowIndex="2"/>
+            <ComboBox fx:id="genderCombo" promptText="Select Gender" GridPane.rowIndex="2">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="Male"/>
+                        <String fx:value="Female"/>
+                    </FXCollections>
+                </items>
+            </ComboBox>
+
+            <Label text="Room Type:" GridPane.rowIndex="3"/>
+            <ComboBox fx:id="roomTypeCombo" promptText="Select Type" GridPane.rowIndex="3">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="Single"/>
+                        <String fx:value="Double"/>
+                    </FXCollections>
+                </items>
+            </ComboBox>
+        </GridPane>
+    </center>
+
+    <!-- Buttons -->
+    <bottom>
+        <HBox spacing="15" alignment="CENTER" styleClass="button-bar">
+            <Button fx:id="addButton" text="Add Room" onAction="#handleAddRoom" styleClass="btn-add"/>
+            <Button fx:id="cancelButton" text="Cancel" onAction="#handleCancel" styleClass="btn-cancel"/>
+        </HBox>
+    </bottom>
+</BorderPane>
