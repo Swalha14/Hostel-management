@@ -32,7 +32,6 @@
         <HBox alignment="CENTER" spacing="20" style="-fx-padding: 20;">
             <Button text="Delete Room" onAction="#handleDeleteRoom" styleClass="delete-btn"/>
             <Button text="Cancel" onAction="#handleCancel" styleClass="cancel-btn"/>
-            <Button text="Back to Dashboard" onAction="#handleBack" styleClass="back-btn"/>
         </HBox>
     </bottom>
 </BorderPane>

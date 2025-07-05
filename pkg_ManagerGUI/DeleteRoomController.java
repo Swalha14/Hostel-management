@@ -25,7 +25,7 @@ public class DeleteRoomController {
             return;
         }
 
-        // Placeholder for actual deletion logic (e.g., DB call)
+        // TODO: Replace with real deletion logic (e.g., from database)
         System.out.println("Room deleted: " + roomNumber);
 
         showAlert(Alert.AlertType.INFORMATION, "Success", "Room " + roomNumber + " deleted successfully!");
@@ -34,12 +34,6 @@ public class DeleteRoomController {
 
     @FXML
     private void handleCancel(ActionEvent event) {
-        Stage stage = (Stage) roomNumberField.getScene().getWindow();
-        stage.close();
-    }
-
-    @FXML
-    private void handleBack(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/pkg_ManagerGUI/ManagerProfile.fxml"));
             Parent root = loader.load();
