@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
 
 public class WelcomeController {
 
@@ -27,9 +28,8 @@ public class WelcomeController {
             stage.setScene(new Scene(loginRoot));
             stage.show();
 
-            // Optionally close current window
-            btnLogin.getScene().getWindow().hide();
-
+            // Close welcome window
+            ((Stage) btnLogin.getScene().getWindow()).close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -38,15 +38,28 @@ public class WelcomeController {
     @FXML
     private void handleSignUp(ActionEvent event) {
         try {
-            Parent signUpRoot = FXMLLoader.load(getClass().getResource("/pkg_SignUp/SignUp.fxml"));
+            // Load the FXML
+            Parent signupRoot = FXMLLoader.load(getClass().getResource("/pkg_SignUp/SignUp.fxml"));
+
+            // Create a new Scene
+            Scene scene = new Scene(signupRoot);
+
+            // Load and apply CSS
+            URL cssURL = getClass().getResource("/pkg_Styles/style.css");
+            if (cssURL != null) {
+                scene.getStylesheets().add(cssURL.toExternalForm());
+            } else {
+                System.out.println("⚠️ CSS file not found!");
+            }
+
+            // Create and show the new stage
             Stage stage = new Stage();
             stage.setTitle("Sign Up");
-            stage.setScene(new Scene(signUpRoot));
+            stage.setScene(scene);
             stage.show();
 
-            // Optionally close current window
-            btnSignUp.getScene().getWindow().hide();
-
+            // Close welcome window
+            ((Stage) btnSignUp.getScene().getWindow()).close();
         } catch (IOException e) {
             e.printStackTrace();
         }
