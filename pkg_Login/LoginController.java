@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -59,8 +60,6 @@ public class LoginController {
                     stage.setTitle("Student Profile");
 
                     Scene scene = new Scene(profileRoot);
-
-                    // Load and apply CSS
                     URL cssURL = getClass().getResource("/pkg_Styles/style.css");
                     if (cssURL != null) {
                         scene.getStylesheets().add(cssURL.toExternalForm());
@@ -75,6 +74,7 @@ public class LoginController {
                     e.printStackTrace();
                 }
             } else {
+                // Student login failed, try manager login
                 String managerQuery = "SELECT * FROM managers WHERE username = ? AND password = ?";
                 PreparedStatement managerStmt = conn.prepareStatement(managerQuery);
                 managerStmt.setString(1, username);
@@ -100,8 +100,6 @@ public class LoginController {
                         stage.setTitle("Manager Profile");
 
                         Scene scene = new Scene(profileRoot);
-
-                        // Load and apply CSS
                         URL cssURL = getClass().getResource("/pkg_Styles/style.css");
                         if (cssURL != null) {
                             scene.getStylesheets().add(cssURL.toExternalForm());
@@ -116,7 +114,8 @@ public class LoginController {
                         e.printStackTrace();
                     }
                 } else {
-                    System.out.println("Invalid credentials.");
+                    // Show alert for invalid credentials
+                    showAlert("Login Failed", "Invalid username or password. Please try again.");
                 }
             }
         } catch (SQLException e) {
@@ -132,8 +131,6 @@ public class LoginController {
             stage.setTitle("Welcome");
 
             Scene scene = new Scene(welcomeRoot);
-
-            // Load and apply CSS
             URL cssURL = getClass().getResource("/pkg_Styles/style.css");
             if (cssURL != null) {
                 scene.getStylesheets().add(cssURL.toExternalForm());
@@ -147,5 +144,14 @@ public class LoginController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    // 🔔 Reusable method to show alert popups
+    private void showAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }
