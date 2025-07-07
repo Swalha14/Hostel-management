@@ -11,11 +11,9 @@ import pkg_classes.Student;
 import pkg_db.DatabaseConnection;
 
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -35,6 +33,8 @@ public class StudentProfileController {
     private AnchorPane ServicesPane;
     @FXML
     private VBox servicesContainer;
+    @FXML
+    private VBox roomDetailsContainer;
 
     @FXML
     private void handleViewProfile() {
@@ -49,11 +49,11 @@ public class StudentProfileController {
 
     public void setStudent(Student student) {
         this.student = student;
-        populateProfile(); // Initially populate when loading
+        populateProfile();
     }
 
     private void populateProfile() {
-        VBox profileContainer = new VBox(10); // container for cards
+        VBox profileContainer = new VBox(10);
         profileContainer.setLayoutX(50);
         profileContainer.setLayoutY(50);
 
@@ -91,28 +91,6 @@ public class StudentProfileController {
         loadServicesFromDatabase();
     }
 
-    @FXML
-    private void handleLogout(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/pkg_Login/Login.fxml"));
-            Parent loginRoot = loader.load();
-
-            Scene scene = new Scene(loginRoot);
-            URL cssURL = getClass().getResource("/pkg_Styles/style.css");
-            if (cssURL != null) {
-                scene.getStylesheets().add(cssURL.toExternalForm());
-            }
-
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(scene);
-            stage.setTitle("Login");
-            stage.show();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     private void loadServicesFromDatabase() {
         ObservableList<Service> servicesList = FXCollections.observableArrayList();
         String query = "SELECT service_name, description FROM services";
@@ -144,6 +122,93 @@ public class StudentProfileController {
             }
 
         } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void handleViewRoomDetails() {
+        ProfilePane.setVisible(false);
+        RoomDetailsPane.setVisible(true);
+        ServicesPane.setVisible(false);
+
+        roomDetailsContainer.getChildren().clear();
+
+        if (student == null || student.getId() == null) return;
+
+        String query = """
+                SELECT r.room_number, r.room_type, f.amount, f.due_date
+                FROM students s
+                JOIN rooms r ON s.room_id = r.room_id
+                JOIN fees f ON r.room_type = f.room_type
+                WHERE s.id = ?
+                """;
+
+        String occupantsQuery = """
+                SELECT name FROM students
+                WHERE room_id = (SELECT room_id FROM students WHERE id = ?)
+                """;
+
+        try (Connection conn = DatabaseConnection.getConnection()) {
+            // Room + fee details
+            try (PreparedStatement stmt = conn.prepareStatement(query)) {
+                stmt.setString(1, student.getId());
+                try (ResultSet rs = stmt.executeQuery()) {
+                    if (rs.next()) {
+                        String roomNumber = rs.getString("room_number");
+                        String roomType = rs.getString("room_type");
+                        String amount = rs.getString("amount");
+                        String dueDate = rs.getString("due_date");
+
+                        roomDetailsContainer.getChildren().addAll(
+                                createProfileCard("Room Number", roomNumber, "pastel-blue"),
+                                createProfileCard("Room Type", roomType, "pastel-green"),
+                                createProfileCard("Room Fee", "Ksh " + amount, "pastel-yellow"),
+                                createProfileCard("Due Date", dueDate, "pastel-pink")
+                        );
+                    }
+                }
+            }
+
+            // Current occupants
+            try (PreparedStatement occStmt = conn.prepareStatement(occupantsQuery)) {
+                occStmt.setString(1, student.getId());
+                try (ResultSet occRs = occStmt.executeQuery()) {
+                    List<String> occupants = new ArrayList<>();
+                    while (occRs.next()) {
+                        occupants.add(occRs.getString("name"));
+                    }
+
+                    String allNames = String.join(", ", occupants);
+                    roomDetailsContainer.getChildren().add(
+                            createProfileCard("Occupants", allNames, "pastel-purple")
+                    );
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void handleLogout(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/pkg_Login/Login.fxml"));
+            Parent loginRoot = loader.load();
+
+            Scene scene = new Scene(loginRoot);
+            URL cssURL = getClass().getResource("/pkg_Styles/style.css");
+            if (cssURL != null) {
+                scene.getStylesheets().add(cssURL.toExternalForm());
+            }
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.setTitle("Login");
+            stage.show();
+
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

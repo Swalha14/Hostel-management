@@ -33,7 +33,7 @@
             <!-- Buttons -->
             <VBox spacing="60" alignment="TOP_CENTER">
                <Button fx:id="btnViewProfile" text="View Profile" onAction="#handleViewProfile" styleClass="button" prefWidth="180"/>
-               <Button fx:id="btnViewRoomDetails" text="View Room Details" styleClass="button" prefWidth="180"/>
+               <Button fx:id="btnViewRoomDetails" text="View Room Details" onAction="#handleViewRoomDetails" styleClass="button" prefWidth="180"/>
                <Button fx:id="btnViewServices" text="View Services" onAction="#handleViewServices" styleClass="button" prefWidth="180"/>
                <Button fx:id="btnLogout" text="Log Out" onAction="#handleLogout" styleClass="button" prefWidth="180"/>
             </VBox>
@@ -49,7 +49,7 @@
                </image>
             </ImageView>
 
-            <!-- Profile Pane (Now with Cards) -->
+            <!-- Profile Pane -->
             <AnchorPane fx:id="ProfilePane" visible="false" style="-fx-background-color: rgba(255,255,255,0.85);" prefWidth="600.0" prefHeight="400.0">
                <children>
                   <VBox spacing="15" layoutX="50.0" layoutY="50.0">
@@ -83,17 +83,23 @@
 
             <!-- Room Details Pane -->
             <AnchorPane fx:id="RoomDetailsPane" visible="false" style="-fx-background-color: rgba(255,255,255,0.85);" prefWidth="600.0" prefHeight="400.0">
-               <!-- You can add content here -->
+               <children>
+                  <VBox fx:id="roomDetailsContainer" spacing="15" layoutX="50.0" layoutY="50.0">
+                     <padding>
+                        <Insets top="20" right="20" bottom="20" left="20"/>
+                     </padding>
+                     <!-- Room details cards will be added dynamically -->
+                  </VBox>
+               </children>
             </AnchorPane>
 
             <!-- Services Pane -->
             <AnchorPane fx:id="ServicesPane" visible="false" style="-fx-background-color: rgba(255,255,255,0.85);" prefWidth="600.0" prefHeight="400.0">
                <children>
-                  <VBox fx:id="servicesContainer" spacing="15">
+                  <VBox fx:id="servicesContainer" spacing="15" layoutX="50.0" layoutY="50.0">
                      <padding>
                         <Insets top="20" right="20" bottom="20" left="20"/>
                      </padding>
-                     <!-- Service cards will be added dynamically in the controller -->
                   </VBox>
                </children>
             </AnchorPane>

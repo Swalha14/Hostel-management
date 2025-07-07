@@ -186,3 +186,23 @@
     -fx-background-color: #fff3cd;
 }
 
+
+/* ======== Room Details Card Styling ======== */
+.room-card {
+    -fx-background-radius: 10;
+    -fx-padding: 15;
+    -fx-background-color: white; /* fallback, will be overridden by pastel color */
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 6, 0, 0, 2);
+}
+
+/* ======== Room Card Text ======== */
+.room-card-label {
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+}
+
+.room-card-value {
+    -fx-font-size: 13px;
+}
+
+
