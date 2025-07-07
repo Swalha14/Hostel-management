@@ -22,11 +22,26 @@ public class WelcomeController {
     @FXML
     private void handleLogin(ActionEvent event) {
         try {
+
             Parent loginRoot = FXMLLoader.load(getClass().getResource("/pkg_Login/Login.fxml"));
+
+            // Create a new Scene
+            Scene scene = new Scene(loginRoot);
+            // Load and apply CSS
+            URL cssURL = getClass().getResource("/pkg_Styles/style.css");
+            if (cssURL != null) {
+                scene.getStylesheets().add(cssURL.toExternalForm());
+            } else {
+                System.out.println("⚠️ CSS file not found!");
+            }
+
+            //Show login page
             Stage stage = new Stage();
             stage.setTitle("Login");
-            stage.setScene(new Scene(loginRoot));
+            stage.setScene(scene);
             stage.show();
+
+
 
             // Close welcome window
             ((Stage) btnLogin.getScene().getWindow()).close();
