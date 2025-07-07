@@ -136,20 +136,34 @@ public class StudentProfileController {
 
         if (student == null || student.getId() == null) return;
 
+        String checkAllocationQuery = "SELECT room_id FROM students WHERE id = ?";
         String query = """
-                SELECT r.room_number, r.room_type, f.amount, f.due_date
-                FROM students s
-                JOIN rooms r ON s.room_id = r.room_id
-                JOIN fees f ON r.room_type = f.room_type
-                WHERE s.id = ?
-                """;
-
+            SELECT r.room_number, r.room_type, f.amount, f.due_date
+            FROM students s
+            JOIN rooms r ON s.room_id = r.room_id
+            JOIN fees f ON r.room_type = f.room_type
+            WHERE s.id = ?
+        """;
         String occupantsQuery = """
-                SELECT name FROM students
-                WHERE room_id = (SELECT room_id FROM students WHERE id = ?)
-                """;
+            SELECT name FROM students
+            WHERE room_id = (SELECT room_id FROM students WHERE id = ?)
+        """;
 
         try (Connection conn = DatabaseConnection.getConnection()) {
+            // Check if student has been allocated a room
+            try (PreparedStatement checkStmt = conn.prepareStatement(checkAllocationQuery)) {
+                checkStmt.setString(1, student.getId());
+                ResultSet checkRs = checkStmt.executeQuery();
+                if (checkRs.next()) {
+                    String roomId = checkRs.getString("room_id");
+                    if (roomId == null || roomId.trim().isEmpty()) {
+                        VBox card = createProfileCard("Room Allocation", "Please wait for room allocation.", "pastel-warning");
+                        roomDetailsContainer.getChildren().add(card);
+                        return;
+                    }
+                }
+            }
+
             // Room + fee details
             try (PreparedStatement stmt = conn.prepareStatement(query)) {
                 stmt.setString(1, student.getId());

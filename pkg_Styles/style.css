@@ -205,4 +205,10 @@
     -fx-font-size: 13px;
 }
 
+.pastel-warning {
+    -fx-background-color: #FFCCCC; /* light red or any color you'd like for warning */
+    -fx-padding: 10;
+    -fx-background-radius: 10;
+}
+
 
