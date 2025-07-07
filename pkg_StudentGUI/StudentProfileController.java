@@ -12,6 +12,7 @@ import pkg_classes.Service;
 import pkg_classes.Student;
 import pkg_db.DatabaseConnection;
 
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -85,7 +86,7 @@ public class StudentProfileController {
         ServicesPane.setVisible(true);
         ProfilePane.setVisible(false);
         RoomDetailsPane.setVisible(false);
-        // Set up columns (you only need to do this once)
+        // Set up columns
         colServiceName.setCellValueFactory(new PropertyValueFactory<>("serviceName"));
         colDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
 
@@ -98,13 +99,25 @@ public class StudentProfileController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/pkg_Login/Login.fxml"));
             Parent loginRoot = loader.load();
 
+            // ✅ Apply CSS
+            Scene scene = new Scene(loginRoot);
+            URL cssURL = getClass().getResource("/pkg_Styles/style.css");
+            if (cssURL != null) {
+                scene.getStylesheets().add(cssURL.toExternalForm());
+            } else {
+                System.out.println("⚠️ style.css not found.");
+            }
+
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(loginRoot));
+            stage.setScene(scene);
+            stage.setTitle("Login");
             stage.show();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 
 
 
