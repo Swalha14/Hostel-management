@@ -4,10 +4,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import pkg_classes.Service;
 import pkg_classes.Student;
 import pkg_db.DatabaseConnection;
@@ -17,7 +15,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ResourceBundle;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -26,18 +24,9 @@ import javafx.stage.Stage;
 import javafx.scene.Node;
 import java.io.IOException;
 
-
 public class StudentProfileController {
     private Student student;
 
-    @FXML
-    private Label txtName;// This must match fx:id in FXML
-    @FXML
-    private Label txtEmail;
-    @FXML
-    private Label txtStudentID;
-    @FXML
-    private Label txtUsername;
     @FXML
     private AnchorPane ProfilePane;
     @FXML
@@ -45,51 +34,60 @@ public class StudentProfileController {
     @FXML
     private AnchorPane ServicesPane;
     @FXML
-    private TableView<Service> tableServices;
-
-    @FXML
-    private TableColumn<Service, String> colServiceName;
-
-    @FXML
-    private TableColumn<Service, String> colDescription;
-
-
+    private VBox servicesContainer;
 
     @FXML
     private void handleViewProfile() {
-        // Show only the profile pane
         ProfilePane.setVisible(true);
-
-        // Optionally hide others (if added later)
-         RoomDetailsPane.setVisible(false);
+        RoomDetailsPane.setVisible(false);
         ServicesPane.setVisible(false);
-    }
 
+        if (student != null) {
+            populateProfile();
+        }
+    }
 
     public void setStudent(Student student) {
         this.student = student;
-        populateProfile();
+        populateProfile(); // Initially populate when loading
     }
 
     private void populateProfile() {
-            if (student != null) {
-                txtName.setText(student.getName());
-                txtEmail.setText(student.getEmail());
-                txtStudentID.setText(student.getId());
-                txtUsername.setText(student.getUsername());
-            }
+        VBox profileContainer = new VBox(10); // container for cards
+        profileContainer.setLayoutX(50);
+        profileContainer.setLayoutY(50);
 
+        profileContainer.getChildren().addAll(
+                createProfileCard("Name", student.getName(), "pastel-blue"),
+                createProfileCard("Username", student.getUsername(), "pastel-green"),
+                createProfileCard("Email", student.getEmail(), "pastel-yellow"),
+                createProfileCard("Student ID", student.getId(), "pastel-pink")
+        );
 
+        ProfilePane.getChildren().clear();
+        ProfilePane.getChildren().add(profileContainer);
     }
+
+    private VBox createProfileCard(String label, String value, String pastelColorClass) {
+        VBox card = new VBox(5);
+        card.getStyleClass().addAll("profile-card", pastelColorClass);
+
+        Label title = new Label(label + ":");
+        title.getStyleClass().add("profile-title");
+
+        Label content = new Label(value);
+        content.getStyleClass().add("profile-description");
+        content.setWrapText(true);
+
+        card.getChildren().addAll(title, content);
+        return card;
+    }
+
     @FXML
     private void handleViewServices() {
         ServicesPane.setVisible(true);
         ProfilePane.setVisible(false);
         RoomDetailsPane.setVisible(false);
-        // Set up columns
-        colServiceName.setCellValueFactory(new PropertyValueFactory<>("serviceName"));
-        colDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
-
         loadServicesFromDatabase();
     }
 
@@ -99,13 +97,10 @@ public class StudentProfileController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/pkg_Login/Login.fxml"));
             Parent loginRoot = loader.load();
 
-            // ✅ Apply CSS
             Scene scene = new Scene(loginRoot);
             URL cssURL = getClass().getResource("/pkg_Styles/style.css");
             if (cssURL != null) {
                 scene.getStylesheets().add(cssURL.toExternalForm());
-            } else {
-                System.out.println("⚠️ style.css not found.");
             }
 
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -118,9 +113,6 @@ public class StudentProfileController {
         }
     }
 
-
-
-
     private void loadServicesFromDatabase() {
         ObservableList<Service> servicesList = FXCollections.observableArrayList();
         String query = "SELECT service_name, description FROM services";
@@ -129,29 +121,30 @@ public class StudentProfileController {
              PreparedStatement stmt = conn.prepareStatement(query);
              ResultSet rs = stmt.executeQuery()) {
 
+            servicesContainer.getChildren().clear();
+
             while (rs.next()) {
                 String name = rs.getString("service_name");
                 String desc = rs.getString("description");
-                servicesList.add(new Service(name, desc));
+                Service service = new Service(name, desc);
+                servicesList.add(service);
+
+                VBox card = new VBox(5);
+                card.getStyleClass().add("service-card");
+
+                Label nameLabel = new Label(service.getServiceName());
+                nameLabel.getStyleClass().add("service-title");
+
+                Label descLabel = new Label(service.getDescription());
+                descLabel.getStyleClass().add("service-description");
+                descLabel.setWrapText(true);
+
+                card.getChildren().addAll(nameLabel, descLabel);
+                servicesContainer.getChildren().add(card);
             }
 
-            tableServices.setItems(servicesList);
-
         } catch (SQLException e) {
-            e.printStackTrace(); // You can show an Alert here too
+            e.printStackTrace();
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

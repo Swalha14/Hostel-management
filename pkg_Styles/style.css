@@ -123,3 +123,66 @@
     -fx-background-color: #2a5a8e;
     -fx-effect: none;
 }
+
+
+/* ---- Student Profile Page Specific Styles ---- */
+
+.service-card {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #cccccc;
+    -fx-border-radius: 8;
+    -fx-padding: 15;
+    -fx-background-radius: 8;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 4, 0, 2, 2);
+}
+
+.service-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+.service-description {
+    -fx-font-size: 14px;
+    -fx-text-fill: #444444;
+}
+
+
+.profile-card {
+    -fx-background-color: white;
+    -fx-padding: 15;
+    -fx-border-color: #cccccc;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 2);
+    -fx-pref-width: 500;
+}
+
+.card-label {
+    -fx-font-weight: bold;
+    -fx-text-fill: #555;
+    -fx-font-size: 14px;
+}
+
+.card-value {
+    -fx-text-fill: #000;
+    -fx-font-size: 16px;
+}
+
+
+/* Pastel background styles */
+.pastel-blue {
+    -fx-background-color: #d0e8f2;
+}
+
+.pastel-pink {
+    -fx-background-color: #f6d1d1;
+}
+
+.pastel-green {
+    -fx-background-color: #d4edda;
+}
+
+.pastel-yellow {
+    -fx-background-color: #fff3cd;
+}
+

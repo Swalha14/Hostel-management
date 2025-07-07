@@ -5,6 +5,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
+<?import javafx.geometry.Insets?>
 
 <AnchorPane prefWidth="900.0" prefHeight="600.0" xmlns="http://javafx.com/javafx/23.0.1"
             xmlns:fx="http://javafx.com/fxml/1"
@@ -30,7 +31,7 @@
             </HBox>
 
             <!-- Buttons -->
-            <VBox spacing="20" alignment="TOP_CENTER">
+            <VBox spacing="60" alignment="TOP_CENTER">
                <Button fx:id="btnViewProfile" text="View Profile" onAction="#handleViewProfile" styleClass="button" prefWidth="180"/>
                <Button fx:id="btnViewRoomDetails" text="View Room Details" styleClass="button" prefWidth="180"/>
                <Button fx:id="btnViewServices" text="View Services" onAction="#handleViewServices" styleClass="button" prefWidth="180"/>
@@ -48,26 +49,34 @@
                </image>
             </ImageView>
 
-            <!-- Profile Pane -->
+            <!-- Profile Pane (Now with Cards) -->
             <AnchorPane fx:id="ProfilePane" visible="false" style="-fx-background-color: rgba(255,255,255,0.85);" prefWidth="600.0" prefHeight="400.0">
                <children>
-                  <VBox alignment="TOP_LEFT" spacing="15" layoutX="50.0" layoutY="50.0">
-                     <HBox spacing="10">
-                        <Label text="Name:"/>
-                        <Label fx:id="txtName" text="Label"/>
-                     </HBox>
-                     <HBox spacing="10">
-                        <Label text="Username:"/>
-                        <Label fx:id="txtUsername" text="Label"/>
-                     </HBox>
-                     <HBox spacing="10">
-                        <Label text="Email:"/>
-                        <Label fx:id="txtEmail" text="Label"/>
-                     </HBox>
-                     <HBox spacing="10">
-                        <Label text="Student ID:"/>
-                        <Label fx:id="txtStudentID" text="Label"/>
-                     </HBox>
+                  <VBox spacing="15" layoutX="50.0" layoutY="50.0">
+                     <AnchorPane styleClass="profile-card pastel-blue">
+                        <VBox spacing="5">
+                           <Label text="Name:" styleClass="card-label"/>
+                           <Label fx:id="txtName" text="John Doe" styleClass="card-value"/>
+                        </VBox>
+                     </AnchorPane>
+                     <AnchorPane styleClass="profile-card pastel-pink">
+                        <VBox spacing="5">
+                           <Label text="Username:" styleClass="card-label"/>
+                           <Label fx:id="txtUsername" text="johndoe" styleClass="card-value"/>
+                        </VBox>
+                     </AnchorPane>
+                     <AnchorPane styleClass="profile-card pastel-green">
+                        <VBox spacing="5">
+                           <Label text="Email:" styleClass="card-label"/>
+                           <Label fx:id="txtEmail" text="john@example.com" styleClass="card-value"/>
+                        </VBox>
+                     </AnchorPane>
+                     <AnchorPane styleClass="profile-card pastel-yellow">
+                        <VBox spacing="5">
+                           <Label text="Student ID:" styleClass="card-label"/>
+                           <Label fx:id="txtStudentID" text="ST12345" styleClass="card-value"/>
+                        </VBox>
+                     </AnchorPane>
                   </VBox>
                </children>
             </AnchorPane>
@@ -80,12 +89,12 @@
             <!-- Services Pane -->
             <AnchorPane fx:id="ServicesPane" visible="false" style="-fx-background-color: rgba(255,255,255,0.85);" prefWidth="600.0" prefHeight="400.0">
                <children>
-                  <TableView fx:id="tableServices" prefHeight="400.0" prefWidth="600.0">
-                     <columns>
-                        <TableColumn fx:id="colServiceName" prefWidth="200.0" text="Service Name"/>
-                        <TableColumn fx:id="colDescription" prefWidth="400.0" text="Description"/>
-                     </columns>
-                  </TableView>
+                  <VBox fx:id="servicesContainer" spacing="15">
+                     <padding>
+                        <Insets top="20" right="20" bottom="20" left="20"/>
+                     </padding>
+                     <!-- Service cards will be added dynamically in the controller -->
+                  </VBox>
                </children>
             </AnchorPane>
 
