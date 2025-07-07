@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 import pkg_classes.Manager;
 
 import java.io.IOException;
+import java.net.URL;
 
 public class ManagerProfileController {
 
@@ -25,10 +26,18 @@ public class ManagerProfileController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/pkg_Login/Login.fxml"));
             Parent loginRoot = loader.load();
+
+            Scene scene = new Scene(loginRoot);
+            URL cssURL = getClass().getResource("/pkg_Styles/style.css");
+            if (cssURL != null) {
+                scene.getStylesheets().add(cssURL.toExternalForm());
+            }
+
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(loginRoot));
+            stage.setScene(scene);
             stage.setTitle("Login");
             stage.show();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -59,25 +68,27 @@ public class ManagerProfileController {
         loadScene("/pkg_ManagerGUI/RoomifyServices.fxml", "Roomify Services", event);
     }
 
+    // ✅ Single corrected loadScene method
     private void loadScene(String fxmlPath, String title, ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
-            if (loader.getLocation() == null) {
-                throw new IOException("FXML file not found at: " + fxmlPath);
-            }
-
             Parent root = loader.load();
 
-            // Optional: pass manager to the new controller if needed
-            // RoomifyServicesController controller = loader.getController();
-            // controller.setManager(this.manager);
+            Scene scene = new Scene(root);
+
+            // Load stylesheet
+            URL cssURL = getClass().getResource("/pkg_Styles/style.css");
+            if (cssURL != null) {
+                scene.getStylesheets().add(cssURL.toExternalForm());
+            }
 
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root));
+            stage.setScene(scene);
             stage.setTitle(title);
             stage.show();
+
         } catch (IOException e) {
-            e.printStackTrace(); // ✅ For debugging
+            e.printStackTrace();
             showAlert(Alert.AlertType.ERROR, "Navigation Error", "Unable to load page: " + title + "\n" + e.getMessage());
         }
     }

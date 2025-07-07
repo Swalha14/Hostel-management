@@ -211,4 +211,31 @@
     -fx-background-radius: 10;
 }
 
+/* Red Button Style for Manager Page */
+.red-button {
+    -fx-background-color: #FF0000;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-background-radius: 10;
+    -fx-cursor: hand;
+    -fx-padding: 8 16;
+}
+
+.red-button:hover {
+    -fx-background-color: #cc0000;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.3), 5, 0.5, 0, 1);
+}
+
+.manager-action-button {
+    -fx-background-color: #FF3333;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 8 16;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 4, 0, 0, 2);
+}
+
+
 
