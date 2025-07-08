@@ -4,82 +4,31 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane xmlns:fx="http://javafx.com/fxml"
-            xmlns="http://javafx.com/javafx/8"
+<BorderPane xmlns="http://javafx.com/javafx/8"
+            xmlns:fx="http://javafx.com/fxml"
             fx:controller="pkg_ManagerGUI.RoomifyServicesController"
-            stylesheets="@/pkg_ManagerGUI/roomifyServices.css"
+            stylesheets="@/pkg_Styles/style.css"
+            prefWidth="900.0" prefHeight="600.0"
             style="-fx-background-color: #f4faff;">
 
+    <!-- Top Title -->
     <top>
-        <VBox alignment="CENTER" spacing="10" styleClass="header-box">
+        <VBox alignment="CENTER" spacing="10" style="-fx-padding: 20;">
             <Label text="Roomify Services" styleClass="header-label"/>
-            <Separator prefWidth="300"/>
+            <Separator prefWidth="400"/>
         </VBox>
     </top>
 
+    <!-- Scrollable Service Cards -->
     <center>
-        <ScrollPane fitToWidth="true" style="-fx-padding: 20;">
-            <VBox spacing="20" alignment="TOP_CENTER">
-
-                <VBox spacing="10" styleClass="service-card">
-                    <Label text="🏠 Room Allocation" styleClass="service-title"/>
-                    <Label text="Assign rooms to students based on preferences and availability." styleClass="service-desc" wrapText="true"/>
-                </VBox>
-
-                <VBox spacing="10" styleClass="service-card">
-                    <Label text="👤 Student Management" styleClass="service-title"/>
-                    <Label text="Manage student profiles and update academic and contact info." styleClass="service-desc" wrapText="true"/>
-                </VBox>
-
-                <VBox spacing="10" styleClass="service-card">
-                    <Label text="🛠️ Maintenance Requests" styleClass="service-title"/>
-                    <Label text="Students can submit room issues; staff can track and resolve them." styleClass="service-desc" wrapText="true"/>
-                </VBox>
-
-                <VBox spacing="10" styleClass="service-card">
-                    <Label text="🧹 Cleaning Schedule" styleClass="service-title"/>
-                    <Label text="Track weekly cleaning of rooms and common areas with reminders." styleClass="service-desc" wrapText="true"/>
-                </VBox>
-
-                <VBox spacing="10" styleClass="service-card">
-                    <Label text="📒 Visitor Log" styleClass="service-title"/>
-                    <Label text="Monitor visitor entries to the hostel for safety and recordkeeping." styleClass="service-desc" wrapText="true"/>
-                </VBox>
-
-                <VBox spacing="10" styleClass="service-card">
-                    <Label text="💳 Billing and Payments" styleClass="service-title"/>
-                    <Label text="View and manage rent invoices, payment records, and alerts." styleClass="service-desc" wrapText="true"/>
-                </VBox>
-
-                <VBox spacing="10" styleClass="service-card">
-                    <Label text="📞 Emergency Contact" styleClass="service-title"/>
-                    <Label text="Quick access to each student's guardian and emergency numbers." styleClass="service-desc" wrapText="true"/>
-                </VBox>
-
-                <VBox spacing="10" styleClass="service-card">
-                    <Label text="🔁 Room Transfer" styleClass="service-title"/>
-                    <Label text="Students can request to move rooms. Admin reviews availability." styleClass="service-desc" wrapText="true"/>
-                </VBox>
-
-                <VBox spacing="10" styleClass="service-card">
-                    <Label text="📢 Notifications" styleClass="service-title"/>
-                    <Label text="Send hostel-wide announcements via email or app alerts." styleClass="service-desc" wrapText="true"/>
-                </VBox>
-
-                <VBox spacing="10" styleClass="service-card">
-                    <Label text="🏖️ Leave Requests" styleClass="service-title"/>
-                    <Label text="Students apply for outing; admins and parents get notifications." styleClass="service-desc" wrapText="true"/>
-                </VBox>
-
-            </VBox>
+        <ScrollPane fitToWidth="true" style="-fx-padding: 10;">
+            <VBox fx:id="servicesContainer" spacing="20" alignment="TOP_CENTER" style="-fx-padding: 10;"/>
         </ScrollPane>
     </center>
 
+    <!-- Back Button -->
     <bottom>
-        <HBox alignment="CENTER">
-            <padding>
-                <Insets top="20" right="20" bottom="20" left="20"/>
-            </padding>
+        <HBox alignment="CENTER" spacing="10" style="-fx-padding: 20;">
             <Button text="⬅ Back to Dashboard" onAction="#handleBack" styleClass="back-btn"/>
         </HBox>
     </bottom>

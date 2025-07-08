@@ -24,8 +24,8 @@ public class AddRoomController {
 
     @FXML
     private void handleAddRoom(ActionEvent event) {
-        String roomNumber = roomNumberField.getText();
-        String capacityText = capacityField.getText();
+        String roomNumber = roomNumberField.getText().trim();
+        String capacityText = capacityField.getText().trim();
         String gender = genderCombo.getValue();
         String roomType = roomTypeCombo.getValue();
 
@@ -38,25 +38,37 @@ public class AddRoomController {
         try {
             capacity = Integer.parseInt(capacityText);
         } catch (NumberFormatException e) {
-            showAlert(Alert.AlertType.ERROR, "Capacity must be a number.");
+            showAlert(Alert.AlertType.ERROR, "Capacity must be a valid number.");
             return;
         }
 
         try (Connection conn = DatabaseConnection.getConnection()) {
             // Check if room already exists
-            String checkQuery = "SELECT * FROM rooms WHERE room_number = ?";
+            String checkQuery = "SELECT COUNT(*) FROM rooms WHERE room_number = ?";
             PreparedStatement checkStmt = conn.prepareStatement(checkQuery);
             checkStmt.setString(1, roomNumber);
             ResultSet rs = checkStmt.executeQuery();
-
-            if (rs.next()) {
+            rs.next();
+            if (rs.getInt(1) > 0) {
                 showAlert(Alert.AlertType.WARNING, "Room already exists.");
                 return;
             }
 
+            // Insert room into database
+            String insertRoom = "INSERT INTO rooms (room_number, room_type, gender, capacity, current_occupants) VALUES (?, ?, ?, ?, 0)";
+            PreparedStatement insertStmt = conn.prepareStatement(insertRoom);
+            insertStmt.setString(1, roomNumber);
+            insertStmt.setString(2, roomType);
+            insertStmt.setString(3, gender);
+            insertStmt.setInt(4, capacity);
 
-            showAlert(Alert.AlertType.INFORMATION, "Room added successfully.\nRoom Number: " + roomNumber);
-            clearForm();
+            int rowsInserted = insertStmt.executeUpdate();
+            if (rowsInserted > 0) {
+                showAlert(Alert.AlertType.INFORMATION, "Room added successfully.");
+                clearForm();
+            } else {
+                showAlert(Alert.AlertType.ERROR, "Failed to add room.");
+            }
 
         } catch (SQLException e) {
             showAlert(Alert.AlertType.ERROR, "Database Error: " + e.getMessage());
