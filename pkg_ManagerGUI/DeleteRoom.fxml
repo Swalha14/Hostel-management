@@ -1,37 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
 
-<BorderPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
             fx:controller="pkg_ManagerGUI.DeleteRoomController"
-            stylesheets="@deleteRoom.css"
-            style="-fx-background-color: #f4faff;">
+            prefWidth="900.0" prefHeight="600.0"
+            style="-fx-background-color: #B3D9FF;">
 
-    <top>
-        <VBox alignment="CENTER" spacing="10" style="-fx-background-color: #ff4d4d; -fx-padding: 20;">
-            <Label text="Delete Room" textFill="white">
-                <font>
-                    <Font name="Arial Black" size="24"/>
-                </font>
-            </Label>
+    <children>
+
+        <!-- Page Title -->
+        <Label text="Delete Room"
+               layoutX="30.0" layoutY="20.0"
+               style="-fx-font-size: 24px; -fx-font-weight: bold;" />
+
+        <!-- Rooms Table -->
+        <VBox layoutX="30.0" layoutY="70.0" spacing="10.0" prefWidth="840.0">
+            <Label text="All Rooms" style="-fx-font-weight: bold;" />
+            <TableView fx:id="tableRooms" prefHeight="300.0">
+                <columns>
+                    <TableColumn fx:id="colRoomNumber" text="Room Number" prefWidth="150"/>
+                    <TableColumn fx:id="colRoomType" text="Type" prefWidth="200"/>
+                    <TableColumn fx:id="colGender" text="Gender" prefWidth="150"/>
+                    <TableColumn fx:id="colAvailableSlots" text="Available Slots" prefWidth="150"/>
+                </columns>
+            </TableView>
         </VBox>
-    </top>
 
-    <center>
-        <VBox alignment="CENTER" spacing="20" style="-fx-padding: 40;">
-            <Label text="Enter Room Number to Delete:"/>
-            <TextField fx:id="roomNumberField" promptText="e.g. A101" maxWidth="250"/>
+        <!-- Input + Buttons -->
+        <VBox layoutX="30.0" layoutY="390.0" spacing="15.0" prefWidth="840.0">
+            <TextField fx:id="roomNumberField"
+                       promptText="Enter Room Number to delete"
+                       prefWidth="300"
+                       style="-fx-font-size: 14px;" />
+
+            <HBox spacing="15.0">
+                <Button text="Delete"
+                        onAction="#handleDeleteRoom"
+                        styleClass="red-button" />
+                <Button text="Cancel"
+                        onAction="#handleCancel"
+                        styleClass="grey-button" />
+            </HBox>
+
+            <Label fx:id="lblMessage" />
         </VBox>
-    </center>
 
-    <bottom>
-        <HBox alignment="CENTER" spacing="20" style="-fx-padding: 20;">
-            <Button text="Delete Room" onAction="#handleDeleteRoom" styleClass="delete-btn"/>
-            <Button text="Cancel" onAction="#handleCancel" styleClass="cancel-btn"/>
-        </HBox>
-    </bottom>
-</BorderPane>
+    </children>
+</AnchorPane>
