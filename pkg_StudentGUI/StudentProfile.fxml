@@ -4,8 +4,8 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.Font?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefWidth="900.0" prefHeight="600.0" xmlns="http://javafx.com/javafx/23.0.1"
             xmlns:fx="http://javafx.com/fxml/1"
@@ -15,34 +15,29 @@
 
       <!-- Left Navigation Panel -->
       <AnchorPane prefWidth="250.0" style="-fx-background-color: #B3D9FF;" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0">
-         <VBox alignment="TOP_CENTER" spacing="20" AnchorPane.topAnchor="20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-            <!-- Top Section -->
+         <VBox alignment="CENTER" spacing="30" AnchorPane.topAnchor="60.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
             <HBox alignment="CENTER" spacing="10">
                <ImageView fitHeight="48.0" fitWidth="48.0" preserveRatio="true">
                   <image>
                      <Image url="@/pkg_Images/business-man.png"/>
                   </image>
                </ImageView>
-               <Label text="Navigation Bar">
-                  <font>
-                     <Font name="Arial Black" size="18.0"/>
-                  </font>
-               </Label>
+               <Label text="Student Menu" styleClass="header-label"/>
             </HBox>
 
-            <!-- Buttons -->
-            <VBox spacing="60" alignment="TOP_CENTER">
+            <VBox spacing="15" alignment="CENTER">
                <Button fx:id="btnViewProfile" text="View Profile" onAction="#handleViewProfile" styleClass="button" prefWidth="180"/>
                <Button fx:id="btnViewRoomDetails" text="View Room Details" onAction="#handleViewRoomDetails" styleClass="button" prefWidth="180"/>
                <Button fx:id="btnViewServices" text="View Services" onAction="#handleViewServices" styleClass="button" prefWidth="180"/>
-               <Button fx:id="btnLogout" text="Log Out" onAction="#handleLogout" styleClass="button" prefWidth="180"/>
+               <Button fx:id="btnLogout" text="Log Out" onAction="#handleLogout" styleClass="red-button" prefWidth="180"/>
             </VBox>
          </VBox>
       </AnchorPane>
 
-      <!-- Right StackPane to Hold Content -->
+      <!-- Right StackPane -->
       <StackPane layoutX="250.0" layoutY="0.0" prefWidth="650.0" prefHeight="600.0" AnchorPane.leftAnchor="250.0">
          <children>
+            <!-- Background Image -->
             <ImageView fitHeight="600.0" fitWidth="650.0" preserveRatio="false">
                <image>
                   <Image url="@/pkg_Images/steven-ungermann-aRT5UCf2MYY-unsplash.jpg"/>
@@ -50,9 +45,10 @@
             </ImageView>
 
             <!-- Profile Pane -->
-            <AnchorPane fx:id="ProfilePane" visible="false" style="-fx-background-color: rgba(255,255,255,0.85);" prefWidth="600.0" prefHeight="400.0">
-               <children>
-                  <VBox spacing="15" layoutX="50.0" layoutY="50.0">
+            <AnchorPane fx:id="ProfilePane" visible="false" styleClass="card" prefWidth="600.0" prefHeight="400.0">
+               <VBox alignment="TOP_CENTER" spacing="20" AnchorPane.topAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
+                  <Label text="Student Profile" styleClass="header-label"/>
+                  <VBox spacing="15" alignment="CENTER">
                      <AnchorPane styleClass="profile-card pastel-blue">
                         <VBox spacing="5">
                            <Label text="Name:" styleClass="card-label"/>
@@ -78,34 +74,34 @@
                         </VBox>
                      </AnchorPane>
                   </VBox>
-               </children>
+               </VBox>
             </AnchorPane>
 
             <!-- Room Details Pane -->
-            <AnchorPane fx:id="RoomDetailsPane" visible="false" style="-fx-background-color: rgba(255,255,255,0.85);" prefWidth="600.0" prefHeight="400.0">
-               <children>
-                  <VBox fx:id="roomDetailsContainer" spacing="15" layoutX="50.0" layoutY="50.0">
+            <AnchorPane fx:id="RoomDetailsPane" visible="false" styleClass="card" prefWidth="600.0" prefHeight="400.0">
+               <VBox alignment="TOP_CENTER" spacing="20" AnchorPane.topAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
+                  <Label text="Room Details" styleClass="header-label"/>
+                  <VBox fx:id="roomDetailsContainer" spacing="15" alignment="TOP_CENTER">
                      <padding>
-                        <Insets top="20" right="20" bottom="20" left="20"/>
+                        <Insets top="10" right="10" bottom="10" left="10"/>
                      </padding>
-                     <!-- Room details cards will be added dynamically -->
                   </VBox>
-               </children>
+               </VBox>
             </AnchorPane>
 
             <!-- Services Pane -->
-            <AnchorPane fx:id="ServicesPane" visible="false" style="-fx-background-color: rgba(255,255,255,0.85);" prefWidth="600.0" prefHeight="400.0">
-               <children>
-                  <VBox fx:id="servicesContainer" spacing="15" layoutX="50.0" layoutY="50.0">
+            <AnchorPane fx:id="ServicesPane" visible="false" styleClass="card" prefWidth="600.0" prefHeight="400.0">
+               <VBox alignment="TOP_CENTER" spacing="20" AnchorPane.topAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
+                  <Label text="Available Services" styleClass="header-label"/>
+                  <VBox fx:id="servicesContainer" spacing="15" alignment="TOP_CENTER">
                      <padding>
-                        <Insets top="20" right="20" bottom="20" left="20"/>
+                        <Insets top="10" right="10" bottom="10" left="10"/>
                      </padding>
                   </VBox>
-               </children>
+               </VBox>
             </AnchorPane>
 
          </children>
       </StackPane>
-
    </children>
 </AnchorPane>
