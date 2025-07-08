@@ -12,6 +12,7 @@ import pkg_db.DatabaseConnection;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class AddRoomController {
@@ -42,15 +43,19 @@ public class AddRoomController {
         }
 
         try (Connection conn = DatabaseConnection.getConnection()) {
-            String insertRoom = "INSERT INTO rooms (room_number, room_type, gender, capacity, current_occupants) VALUES (?, ?, ?, ?, 0)";
-            PreparedStatement stmt = conn.prepareStatement(insertRoom);
-            stmt.setString(1, roomNumber);
-            stmt.setString(2, roomType);
-            stmt.setString(3, gender);
-            stmt.setInt(4, capacity);
-            stmt.executeUpdate();
+            // Check if room already exists
+            String checkQuery = "SELECT * FROM rooms WHERE room_number = ?";
+            PreparedStatement checkStmt = conn.prepareStatement(checkQuery);
+            checkStmt.setString(1, roomNumber);
+            ResultSet rs = checkStmt.executeQuery();
 
-            showAlert(Alert.AlertType.INFORMATION, "Room added successfully!");
+            if (rs.next()) {
+                showAlert(Alert.AlertType.WARNING, "Room already exists.");
+                return;
+            }
+
+
+            showAlert(Alert.AlertType.INFORMATION, "Room added successfully.\nRoom Number: " + roomNumber);
             clearForm();
 
         } catch (SQLException e) {
@@ -63,8 +68,15 @@ public class AddRoomController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("ManagerProfile.fxml"));
             Parent root = loader.load();
-            Stage stage = (Stage) roomNumberField.getScene().getWindow(); // Get current window
-            stage.setScene(new Scene(root));
+            Scene scene = new Scene(root);
+
+            // Add style.css
+            scene.getStylesheets().add(getClass().getResource("/pkg_Styles/style.css").toExternalForm());
+
+            Stage stage = (Stage) roomNumberField.getScene().getWindow();
+            stage.setScene(scene);
+            stage.setTitle("Manager Dashboard");
+            stage.show();
         } catch (IOException e) {
             showAlert(Alert.AlertType.ERROR, "Navigation Error: " + e.getMessage());
         }
