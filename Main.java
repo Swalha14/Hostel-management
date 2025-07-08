@@ -3,6 +3,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
+import pkg_classes.Fee;
+import pkg_classes.Student;
+import pkg_classes.Room;
+import pkg_classes.Service;
+import pkg_classes.User;
+import pkg_classes.Manager;
 
 public class Main extends Application {
 
