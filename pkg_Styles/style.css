@@ -240,4 +240,24 @@
 
 .room-card-value {
     -fx-font-size: 13px;
+    }
+
+
+
+    .red-button {
+        -fx-background-color: #FF3333;
+        -fx-text-fill: white;
+        -fx-font-weight: bold;
+        -fx-padding: 8 16 8 16;
+            -fx-background-radius: 8;
+    }
+
+    .grey-button {
+        -fx-background-color: #cccccc;
+        -fx-text-fill: black;
+        -fx-font-weight: bold;
+        -fx-padding: 8 16 8 16;
+            -fx-background-radius: 8;
+    }
+
 }
