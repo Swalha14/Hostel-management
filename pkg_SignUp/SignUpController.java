@@ -11,6 +11,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.stage.Stage;
 import pkg_db.DatabaseConnection;
+import pkg_classes.Student;
 
 import java.io.IOException;
 import java.net.URL;
@@ -18,13 +19,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
-import pkg_classes.Student;
-
 
 public class SignUpController implements Initializable {
 
     @FXML
     private TextField txtName;
+
     @FXML
     private TextField txtEmail;
 
@@ -54,10 +54,7 @@ public class SignUpController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        // Populate gender options
         comboGender.getItems().addAll("Male", "Female");
-
-        // Populate room type options
         comboRoomType.getItems().addAll("Single", "Double", "Triple");
     }
 
@@ -72,7 +69,7 @@ public class SignUpController implements Initializable {
         String gender = comboGender.getValue();
         String roomType = comboRoomType.getValue();
 
-        if (name.isEmpty()||email.isEmpty() || username.isEmpty() || studentId.isEmpty() ||
+        if (name.isEmpty() || email.isEmpty() || username.isEmpty() || studentId.isEmpty() ||
                 password.isEmpty() || confirmPassword.isEmpty() || gender == null || roomType == null) {
             showAlert(AlertType.ERROR, "Form Error!", "Please fill in all fields.");
             return;
@@ -106,18 +103,29 @@ public class SignUpController implements Initializable {
         }
     }
 
-
-@FXML
+    @FXML
     private void handleCancel(ActionEvent event) {
         try {
-            Parent welcomeRoot = FXMLLoader.load(getClass().getResource("/pkg_Welcome/Welcome.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/pkg_Welcome/Welcome.fxml"));
+            Parent welcomeRoot = loader.load();
+
+            Scene scene = new Scene(welcomeRoot);
+
+            // ✅ Apply CSS here
+            URL cssURL = getClass().getResource("/pkg_Styles/style.css");
+            if (cssURL != null) {
+                scene.getStylesheets().add(cssURL.toExternalForm());
+            } else {
+                System.out.println("⚠️ CSS file not found!");
+            }
+
             Stage stage = new Stage();
             stage.setTitle("Welcome");
-            stage.setScene(new Scene(welcomeRoot));
+            stage.setScene(scene);
             stage.show();
 
             // Close signup window
-            ((Stage)((Node) event.getSource()).getScene().getWindow()).close();
+            ((Stage) ((Node) event.getSource()).getScene().getWindow()).close();
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -131,6 +139,4 @@ public class SignUpController implements Initializable {
         alert.setContentText(message);
         alert.showAndWait();
     }
-
 }
-

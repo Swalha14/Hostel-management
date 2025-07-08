@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/8"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="pkg_ManagerGUI.RoomifyServicesController"
+            stylesheets="@/pkg_Styles/style.css"
+            prefWidth="900.0" prefHeight="600.0"
+            style="-fx-background-color: #f4faff;">
+
+    <!-- Top Title -->
+    <top>
+        <VBox alignment="CENTER" spacing="10" style="-fx-padding: 20;">
+            <Label text="Roomify Services" styleClass="header-label"/>
+            <Separator prefWidth="400"/>
+        </VBox>
+    </top>
+
+    <!-- Scrollable Service Cards -->
+    <center>
+        <ScrollPane fitToWidth="true" style="-fx-padding: 10;">
+            <VBox fx:id="servicesContainer" spacing="20" alignment="TOP_CENTER" style="-fx-padding: 10;"/>
+        </ScrollPane>
+    </center>
+
+    <!-- Back Button -->
+    <bottom>
+        <HBox alignment="CENTER" spacing="10" style="-fx-padding: 20;">
+            <Button text="⬅ Back to Dashboard" onAction="#handleBack" styleClass="back-btn"/>
+        </HBox>
+    </bottom>
+</BorderPane>

@@ -5,15 +5,17 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.scene.Node;
 import pkg_StudentGUI.StudentProfileController;
 import pkg_db.DatabaseConnection;
-import pkg_classes.Student;  // Import Student class
+import pkg_classes.Student;
 
 import java.io.IOException;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -32,7 +34,6 @@ public class LoginController {
         String password = txtPassword.getText();
 
         try (Connection conn = DatabaseConnection.getConnection()) {
-            // First, try student login (your existing logic)
             String studentQuery = "SELECT * FROM students WHERE username = ? AND password = ?";
             PreparedStatement studentStmt = conn.prepareStatement(studentQuery);
             studentStmt.setString(1, username);
@@ -41,7 +42,6 @@ public class LoginController {
             ResultSet rsStudent = studentStmt.executeQuery();
 
             if (rsStudent.next()) {
-                // Student login success - existing code unchanged
                 String id = rsStudent.getString("id");
                 String name = rsStudent.getString("name");
                 String email = rsStudent.getString("email");
@@ -58,10 +58,16 @@ public class LoginController {
 
                     Stage stage = new Stage();
                     stage.setTitle("Student Profile");
-                    stage.setScene(new Scene(profileRoot));
+
+                    Scene scene = new Scene(profileRoot);
+                    URL cssURL = getClass().getResource("/pkg_Styles/style.css");
+                    if (cssURL != null) {
+                        scene.getStylesheets().add(cssURL.toExternalForm());
+                    }
+
+                    stage.setScene(scene);
                     stage.show();
 
-                    // Close login window
                     ((Stage) ((Node) event.getSource()).getScene().getWindow()).close();
 
                 } catch (IOException e) {
@@ -77,37 +83,39 @@ public class LoginController {
                 ResultSet rsManager = managerStmt.executeQuery();
 
                 if (rsManager.next()) {
-                    // Manager login success
                     String id = rsManager.getString("manager_id");
                     String name = rsManager.getString("name");
                     String email = rsManager.getString("email");
-                    String mgrUsername = rsManager.getString("username");
 
-                    // Assuming your Manager constructor is Manager(id, name, email, username, password)
-                    pkg_classes.Manager loggedInManager = new pkg_classes.Manager(id,name,email,username, password);
+                    pkg_classes.Manager loggedInManager = new pkg_classes.Manager(id, name, email, username, password);
 
                     try {
                         FXMLLoader loader = new FXMLLoader(getClass().getResource("/pkg_ManagerGUI/ManagerProfile.fxml"));
                         Parent profileRoot = loader.load();
 
-                        // Assuming you have a ManagerProfileController with setManager method
                         pkg_ManagerGUI.ManagerProfileController controller = loader.getController();
                         controller.setManager(loggedInManager);
 
                         Stage stage = new Stage();
                         stage.setTitle("Manager Profile");
-                        stage.setScene(new Scene(profileRoot));
+
+                        Scene scene = new Scene(profileRoot);
+                        URL cssURL = getClass().getResource("/pkg_Styles/style.css");
+                        if (cssURL != null) {
+                            scene.getStylesheets().add(cssURL.toExternalForm());
+                        }
+
+                        stage.setScene(scene);
                         stage.show();
 
-                        // Close login window
                         ((Stage) ((Node) event.getSource()).getScene().getWindow()).close();
 
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                 } else {
-                    // Neither student nor manager login succeeded
-                    System.out.println("Invalid credentials.");
+                    // Show alert for invalid credentials
+                    showAlert("Login Failed", "Invalid username or password. Please try again.");
                 }
             }
         } catch (SQLException e) {
@@ -121,14 +129,29 @@ public class LoginController {
             Parent welcomeRoot = FXMLLoader.load(getClass().getResource("/pkg_Welcome/Welcome.fxml"));
             Stage stage = new Stage();
             stage.setTitle("Welcome");
-            stage.setScene(new Scene(welcomeRoot));
+
+            Scene scene = new Scene(welcomeRoot);
+            URL cssURL = getClass().getResource("/pkg_Styles/style.css");
+            if (cssURL != null) {
+                scene.getStylesheets().add(cssURL.toExternalForm());
+            }
+
+            stage.setScene(scene);
             stage.show();
 
-            // Close login window
             ((Stage) ((Node) event.getSource()).getScene().getWindow()).close();
 
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    // 🔔 Reusable method to show alert popups
+    private void showAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }

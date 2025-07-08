@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="pkg_ManagerGUI.DeleteRoomController"
+            prefWidth="900.0" prefHeight="600.0"
+            style="-fx-background-color: #B3D9FF;">
+
+    <children>
+
+        <!-- Page Title -->
+        <Label text="Delete Room"
+               layoutX="30.0" layoutY="20.0"
+               style="-fx-font-size: 24px; -fx-font-weight: bold;" />
+
+        <!-- Rooms Table -->
+        <VBox layoutX="30.0" layoutY="70.0" spacing="10.0" prefWidth="840.0">
+            <Label text="All Rooms" style="-fx-font-weight: bold;" />
+            <TableView fx:id="tableRooms" prefHeight="300.0">
+                <columns>
+                    <TableColumn fx:id="colRoomNumber" text="Room Number" prefWidth="150"/>
+                    <TableColumn fx:id="colRoomType" text="Type" prefWidth="200"/>
+                    <TableColumn fx:id="colGender" text="Gender" prefWidth="150"/>
+                    <TableColumn fx:id="colAvailableSlots" text="Available Slots" prefWidth="150"/>
+                </columns>
+            </TableView>
+        </VBox>
+
+        <!-- Input + Buttons -->
+        <VBox layoutX="30.0" layoutY="390.0" spacing="15.0" prefWidth="840.0">
+            <TextField fx:id="roomNumberField"
+                       promptText="Enter Room Number to delete"
+                       prefWidth="300"
+                       style="-fx-font-size: 14px;" />
+
+            <HBox spacing="15.0">
+                <Button text="Delete"
+                        onAction="#handleDeleteRoom"
+                        styleClass="red-button" />
+                <Button text="Cancel"
+                        onAction="#handleCancel"
+                        styleClass="grey-button" />
+            </HBox>
+
+            <Label fx:id="lblMessage" />
+        </VBox>
+
+    </children>
+</AnchorPane>

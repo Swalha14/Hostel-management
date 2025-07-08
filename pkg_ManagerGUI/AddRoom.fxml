@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="pkg_ManagerGUI.AddRoomController"
+            prefWidth="900.0" prefHeight="600.0"
+            style="-fx-background-color: #B3D9FF;">
+
+    <!-- Header -->
+    <top>
+        <VBox alignment="CENTER" spacing="10" style="-fx-padding: 20;">
+            <Label text="Add Room"
+                   textFill="white"
+                   style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-background-color: #3399FF; -fx-padding: 10; -fx-background-radius: 8;"/>
+        </VBox>
+    </top>
+
+    <!-- Form Centered -->
+    <center>
+        <GridPane hgap="20" vgap="20" alignment="CENTER" style="-fx-padding: 40;">
+            <columnConstraints>
+                <ColumnConstraints minWidth="150" halignment="RIGHT"/>
+                <ColumnConstraints minWidth="250" halignment="LEFT"/>
+            </columnConstraints>
+
+            <Label text="Room Number:" GridPane.rowIndex="0" GridPane.columnIndex="0"
+                   style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+            <TextField fx:id="roomNumberField" promptText="e.g. A101"
+                       GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+            <Label text="Capacity:" GridPane.rowIndex="1" GridPane.columnIndex="0"
+                   style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+            <TextField fx:id="capacityField" promptText="e.g. 2"
+                       GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+            <Label text="Gender:" GridPane.rowIndex="2" GridPane.columnIndex="0"
+                   style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+            <ComboBox fx:id="genderCombo" promptText="Select Gender"
+                      GridPane.rowIndex="2" GridPane.columnIndex="1">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="Male"/>
+                        <String fx:value="Female"/>
+                    </FXCollections>
+                </items>
+            </ComboBox>
+
+            <Label text="Room Type:" GridPane.rowIndex="3" GridPane.columnIndex="0"
+                   style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+            <ComboBox fx:id="roomTypeCombo" promptText="Select Type"
+                      GridPane.rowIndex="3" GridPane.columnIndex="1">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="Single"/>
+                        <String fx:value="Double"/>
+                        <String fx:value="Triple"/>
+                    </FXCollections>
+                </items>
+            </ComboBox>
+        </GridPane>
+    </center>
+
+    <!-- Buttons -->
+    <bottom>
+        <HBox spacing="20" alignment="CENTER" style="-fx-padding: 20;">
+            <Button fx:id="addButton" text="Add Room"
+                    onAction="#handleAddRoom"
+                    styleClass="btn-add"/>
+            <Button fx:id="cancelButton" text="Cancel"
+                    onAction="#handleCancel"
+                    styleClass="btn-cancel"/>
+        </HBox>
+    </bottom>
+</BorderPane>

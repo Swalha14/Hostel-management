@@ -152,8 +152,20 @@ public class RoomAllocationController implements Initializable {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("ManagerProfile.fxml"));
             Parent root = loader.load();
+
+            Scene scene = new Scene(root);
+
+            // Attach style.css
+            URL cssURL = getClass().getResource("/pkg_Styles/style.css");
+            if (cssURL != null) {
+                scene.getStylesheets().add(cssURL.toExternalForm());
+            }
+
             Stage stage = (Stage) studentsTable.getScene().getWindow();  // Get current window
-            stage.setScene(new Scene(root));
+            stage.setScene(scene);
+            stage.setTitle("Manager Dashboard");
+            stage.show();
+
         } catch (IOException e) {
             showAlert(Alert.AlertType.ERROR, "Navigation Error", "Failed to return to dashboard:\n" + e.getMessage());
         }

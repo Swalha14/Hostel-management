@@ -1,66 +1,80 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.text.Font?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
 
-<BorderPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pkg_Welcome.WelcomeController">
+<BorderPane xmlns="http://javafx.com/javafx/23.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="pkg_Welcome.WelcomeController"
+            prefWidth="900" prefHeight="600">
+
    <center>
-      <AnchorPane prefHeight="400.0" prefWidth="600.0">
-         <children>
-            <ImageView fitHeight="400.0" fitWidth="200.0" pickOnBounds="true">
+      <HBox spacing="0">
+
+         <!-- Left Panel -->
+         <VBox fx:id="leftPanel" prefWidth="350" style="-fx-background-color: white;">
+            <ImageView fx:id="imageView"
+                       fitWidth="350"
+                       fitHeight="600"
+                       preserveRatio="true">
                <image>
-                  <Image url="@/pkg_Images/malcolm-shadrach-_r80LCluvVM-unsplash.jpg" />
+                  <Image url="@/pkg_Images/malcolm-shadrach-_r80LCluvVM-unsplash.jpg"/>
                </image>
             </ImageView>
-            <AnchorPane layoutX="200.0" prefHeight="83.0" prefWidth="402.0" style="-fx-background-color: #B3D9FF;">
-               <children>
-                  <ImageView fitHeight="67.0" fitWidth="68.0" layoutX="328.0" pickOnBounds="true" preserveRatio="true">
+         </VBox>
+
+         <!-- Right Panel -->
+         <VBox fx:id="rightPanel"
+               prefWidth="550"
+               spacing="20"
+               alignment="TOP_CENTER"
+               style="-fx-background-color: #F9F9F9; -fx-padding: 30; -fx-border-radius: 15; -fx-background-radius: 15;">
+
+            <!-- Top Header Section: Roomify + Tagline -->
+            <VBox alignment="CENTER" spacing="5"
+                  style="-fx-background-color: #cce6ff; -fx-padding: 15; -fx-background-radius: 10;">
+               <HBox alignment="CENTER" spacing="10">
+                  <Label text="Roomify"
+                         style="-fx-font-size: 34px; -fx-font-family: 'Georgia'; -fx-font-weight: bold;"/>
+                  <ImageView fitWidth="40" fitHeight="40">
                      <image>
-                        <Image url="@/pkg_Images/key.png" />
+                        <Image url="@/pkg_Images/key.png"/>
                      </image>
                   </ImageView>
-                  <Label alignment="CENTER" layoutX="84.0" prefHeight="46.0" prefWidth="200.0" text="Roomify">
-                     <font>
-                        <Font name="Georgia Pro Black" size="24.0" />
-                     </font>
-                  </Label>
-                  <Label alignment="CENTER" layoutX="40.0" layoutY="45.0" prefHeight="29.0" prefWidth="288.0" text="A home away from home">
-                     <font>
-                        <Font name="Bodoni MT Black" size="14.0" />
-                     </font>
-                  </Label>
-               </children>
-            </AnchorPane>
-            <AnchorPane layoutX="200.0" layoutY="83.0" prefHeight="315.0" prefWidth="402.0">
-               <children>
-                  <Button fx:id="btnLogin" layoutX="96.0" layoutY="100.0" mnemonicParsing="false" onAction="#handleLogin" prefHeight="25.0" prefWidth="157.0" style="-fx-background-color: #B3D9FF;" text="Login">
-                     <font>
-                        <Font name="Arial Black" size="12.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="btnSignUp" layoutX="96.0" layoutY="222.0" mnemonicParsing="false" onAction="#handleSignUp" prefHeight="25.0" prefWidth="157.0" style="-fx-background-color: #B3D9FF;" text="Sign Up">
-                     <font>
-                        <Font name="Arial Black" size="12.0" />
-                     </font>
-                  </Button>
-                  <Label layoutX="28.0" layoutY="159.0" prefHeight="29.0" prefWidth="288.0" text="Don't have an account? Sign Up now">
-                     <font>
-                        <Font name="Calibri" size="18.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="28.0" layoutY="41.0" prefHeight="36.0" prefWidth="365.0" text="Log in to your roomify Account">
-                     <font>
-                        <Font name="Calibri" size="18.0" />
-                     </font>
-                  </Label>
-               </children>
-            </AnchorPane>
-         </children>
-      </AnchorPane>
+               </HBox>
+               <Label text="A home away from home"
+                      style="-fx-font-size: 16px; -fx-font-family: 'Georgia'; -fx-text-fill: #2c3e50;"/>
+            </VBox>
+
+            <!-- Middle Section -->
+            <VBox alignment="CENTER" spacing="25" VBox.vgrow="ALWAYS">
+
+               <Label text="Log in to your Roomify Account"
+                      style="-fx-font-size: 22px; -fx-font-family: 'Calibri'; -fx-font-weight: bold;"/>
+
+               <Button fx:id="btnLogin"
+                       text="Login"
+                       onAction="#handleLogin"
+                       style="-fx-background-color: #00C896; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 16px; -fx-background-radius: 10;"
+                       prefWidth="220" prefHeight="40"/>
+
+               <Label text="Don't have an account? Sign Up now"
+                      style="-fx-font-size: 16px; -fx-font-family: 'Calibri'; -fx-text-fill: #666666;"/>
+
+               <Button fx:id="btnSignUp"
+                       text="Sign Up"
+                       onAction="#handleSignUp"
+                       style="-fx-background-color: #3399FF; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 16px; -fx-background-radius: 10;"
+                       prefWidth="220" prefHeight="40"/>
+            </VBox>
+
+            <!-- Footer Section -->
+            <Label text="© 2025 Roomify. All rights reserved."
+                   alignment="CENTER"
+                   style="-fx-font-size: 12px; -fx-text-fill: #999999;"/>
+         </VBox>
+      </HBox>
    </center>
 </BorderPane>
