@@ -10,6 +10,7 @@
             fx:controller="pkg_Login.LoginController"
             prefWidth="900" prefHeight="600">
 
+   <!-- CENTER: Main Content -->
    <center>
       <HBox spacing="0">
 
@@ -45,32 +46,38 @@
             </VBox>
 
             <!-- Form Fields -->
-            <VBox spacing="15" alignment="TOP_CENTER">
+            <VBox spacing="15" alignment="TOP_CENTER" VBox.vgrow="ALWAYS">
                <Label text="Username" style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-text-fill: #34495e;"/>
                <TextField fx:id="txtUsername" promptText="Enter username" prefWidth="300" styleClass="login-textfield"/>
 
                <Label text="Password" style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-text-fill: #34495e;"/>
                <PasswordField fx:id="txtPassword" promptText="Enter password" prefWidth="300" styleClass="login-passwordfield"/>
+
+               <!-- Buttons Centered -->
+               <HBox spacing="20" alignment="CENTER">
+                  <Button fx:id="LoginButton"
+                          text="Login"
+                          onAction="#ActionLogin"
+                          styleClass="login-button"
+                          prefWidth="130"/>
+                  <Button fx:id="CancelButton"
+                          text="Cancel"
+                          onAction="#ActionCancel"
+                          styleClass="login-button"
+                          prefWidth="130"/>
+               </HBox>
             </VBox>
 
-            <!-- Buttons -->
-            <HBox spacing="20" alignment="CENTER_RIGHT" prefWidth="300">
-               <Button fx:id="CancelButton"
-                       text="Cancel"
-                       onAction="#ActionCancel"
-                       styleClass="login-button"
-                       prefWidth="130"/>
-               <Button fx:id="LoginButton"
-                       text="Login"
-                       onAction="#ActionLogin"
-                       styleClass="login-button"
-                       prefWidth="130"/>
-            </HBox>
-
-            <!-- Footer -->
-            <Label text="© 2025 Roomify. All rights reserved."
-                   style="-fx-font-size: 12px; -fx-text-fill: #999999;"/>
          </VBox>
       </HBox>
    </center>
+
+   <!--  BOTTOM: Footer -->
+   <bottom>
+      <HBox alignment="CENTER" style="-fx-padding: 10;">
+         <Label text="© 2025 Roomify. All rights reserved."
+                alignment="CENTER"
+                style="-fx-font-size: 12px; -fx-text-fill: #999999;"/>
+      </HBox>
+   </bottom>
 </BorderPane>
