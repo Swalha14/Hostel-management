@@ -238,4 +238,6 @@
 }
 
 
-
+.room-card-value {
+    -fx-font-size: 13px;
+}
