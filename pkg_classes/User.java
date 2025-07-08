@@ -1,6 +1,6 @@
 package pkg_classes;
 
-public abstract class User {
+public abstract class User implements IUser{
     protected String id;
     protected String name;
     protected String email;
@@ -46,11 +46,4 @@ public abstract class User {
     public void setPassword(String password) {
         this.password = password;
     }
-
-
-
-
-
-
-
 }
