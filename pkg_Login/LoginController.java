@@ -40,7 +40,7 @@ public class LoginController {
             studentStmt.setString(2, password);
 
             ResultSet rsStudent = studentStmt.executeQuery();
-
+//credential validation
             if (rsStudent.next()) {
                 String id = rsStudent.getString("id");
                 String name = rsStudent.getString("name");
@@ -88,7 +88,7 @@ public class LoginController {
                     String email = rsManager.getString("email");
 
                     pkg_classes.Manager loggedInManager = new pkg_classes.Manager(id, name, email, username, password);
-
+                     //loading the fxml file
                     try {
                         FXMLLoader loader = new FXMLLoader(getClass().getResource("/pkg_ManagerGUI/ManagerProfile.fxml"));
                         Parent profileRoot = loader.load();
@@ -109,7 +109,6 @@ public class LoginController {
                         stage.show();
 
                         ((Stage) ((Node) event.getSource()).getScene().getWindow()).close();
-
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
